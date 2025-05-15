@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram-like Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #fafafa;
+        }
+
+        /* Container for posts */
+        .posts-container {
+            max-width: 600px;
+            margin: 80px auto 80px auto;
+            padding: 10px;
+        }
+
+        /* Individual post styles */
+        .post {
+            background-color: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        /* Post header (user info) */
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        /* Post image placeholder */
+        .post-image {
+            width: 100%;
+            height: 300px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 24px;
+        }
+
+        /* Action buttons (like, comment, share) */
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .action-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        /* Fixed Home button at bottom */
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            background-color: #0077cc;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Posts Container -->
+    <div class="posts-container" id="postsContainer">
+        <!-- Example Post -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://via.placeholder.com/40" alt="User Avatar" class="user-avatar" />
+                <div class="username">Follower1</div>
+            </div>
+            <div class="post-image">Post Image</div>
+            <div class="actions">
+                <div class="action-button" onclick="likePost(this)">
+                    ❤️ Like
+                </div>
+                <div class="action-button" onclick="commentPost()">
+                    💬 Comment
+                </div>
+                <div class="action-button" onclick="sharePost()">
+                    🔗 Share
+                </div>
+            </div>
+        </div>
+
+        <!-- More posts can be added dynamically -->
+    </div>
+
+    <!-- Fixed Home Button -->
+    <button class="home-button" onclick="scrollToTop()" title="Home">
+        🏠
+    </button>
+
+    <script>
+        // Function to scroll to top (or dashboard)
+        function scrollToTop() {
+            document.getElementById('postsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Example function to handle liking a post
+        function likePost(element) {
+            if (element.innerHTML.includes('❤️')) {
+                element.innerHTML = '💖 Liked';
+            } else {
+                element.innerHTML = '❤️ Like';
+            }
+        }
+
+        // Placeholder functions for comment and share
+        function commentPost() {
+            alert('Comment feature coming soon!');
+        }
+
+        function sharePost() {
+            alert('Share feature coming soon!');
+        }
+
+        // Optional: Function to dynamically add posts (simulate fetching from followers)
+        function addPost(username, avatarUrl, imageText) {
+            const container = document.getElementById('postsContainer');
+
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post';
+
+            // Post header
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'post-header';
+
+            const avatarImg = document.createElement('img');
+            avatarImg.src = avatarUrl;
+            avatarImg.alt = 'User Avatar';
+            avatarImg.className = 'user-avatar';
+
+            const usernameDiv = document.createElement('div');
+            usernameDiv.className = 'username';
+            usernameDiv.innerText = username;
+
+            headerDiv.appendChild(avatarImg);
+            headerDiv.appendChild(usernameDiv);
+
+            // Post image placeholder
+            const imageDiv = document.createElement('div');
+            imageDiv.className = 'post-image';
+            imageDiv.innerText = imageText;
+
+            // Actions
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'actions';
+
+            const likeBtn = document.createElement('div');
+            likeBtn.className = 'action-button';
+            likeBtn.innerHTML = '❤️ Like';
+            likeBtn.onclick = function() { likePost(this); };
+
+            const commentBtn = document.createElement('div');
+            commentBtn.className = 'action-button';
+            commentBtn.innerHTML = '💬 Comment';
+            commentBtn.onclick = commentPost;
+
+            const shareBtn = document.createElement('div');
+            shareBtn.className = 'action-button';
+            shareBtn.innerHTML = '🔗 Share';
+            shareBtn.onclick = sharePost;
+
+            actionsDiv.appendChild(likeBtn);
+            actionsDiv.appendChild(commentBtn);
+            actionsDiv.appendChild(shareBtn);
+
+            // Assemble post
+            postDiv.appendChild(headerDiv);
+            postDiv.appendChild(imageDiv);
+            postDiv.appendChild(actionsDiv);
+
+            container.appendChild(postDiv);
+        }
+
+        // Example: Adding a new post dynamically
+        // addPost('Friend2', 'https://via.placeholder.com/40', 'Friend post image');
+    </script>
+</body>
+</html>
